@@ -133,18 +133,24 @@ void makeArray(int arr[], int size)
 // Driver program to test above functions 
 int main() 
 { 
-//	int arr[] = {1000, 10, 7, 8, 9, 30, 900, 1, 5, 6, 20}; 
+ double result =0;
+ int total = 0;
  int size = 2000;
+ int max =0;
+ for(int i=0;i<100; i++){
  int rand[size];
-
  makeArray(rand,size); 
- printArray(rand,size);	
+// printArray(rand,size);	
  auto start = high_resolution_clock::now();
 	quickSort(rand, 0, size-1); 
  auto stop = high_resolution_clock::now();
  auto duration = duration_cast<microseconds>(stop-start);
  cout << duration.count() << endl;
- printArray(rand,size);
+ total = total + duration.count();
+ if (duration.count() > max)
+   max = duration.count();
+ }
+ cout << "Average" << total/100 << " max " << max<<endl;
 	return 0; 
 } 
 

@@ -54,8 +54,12 @@ void makeArray(int arr[], int size)
 }
 int main()
 {
+  double result =0;
+  int total =0;
+  int size =2000;
+  int max =0;
 //  int arr[] = {10,7,8,9,1,5};
-  int size = 2000;
+  for(int i=0;i<100;i++){
   int rand[size];
 //  int n = sizeof(arr) / sizeof(arr[0]);
   makeArray(rand,size);
@@ -64,7 +68,12 @@ int main()
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop-start);
   cout << duration.count() <<endl;
-  printArray(rand,size);
+  total = total + duration.count();
+  if(duration.count() > max)
+    max = duration.count();
+//  cout << total << endl;
+  }
+  cout <<"Average"<< total/100 << " max "<<max  << endl;
   return 0;
 
 }
