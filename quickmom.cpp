@@ -1,3 +1,18 @@
+/*Ian Percy
+CS584
+Project - Quicksort
+MOM Implementation
+
+Code borrowed from GeeksforGeeks
+https://www.geeksforgeeks.org/can-quicksort-implemented-onlogn-worst-case-time-complexity/
+
+Test runs created as well as the generation for the arrays
+
+This code file controls the Quicksort implementation while using a median-for-medians approach
+
+
+*/
+
 /* A worst case O(nLogn) implementation of quicksort */
 #include<cstring> 
 #include<iostream> 
@@ -6,6 +21,7 @@
 #include<chrono>
 using namespace std; 
 using namespace std::chrono;
+int size=1000;
 // Following functions are taken from http://goo.gl/ih05BF 
 int partition(int arr[], int l, int r, int k); 
 int kthSmallest(int arr[], int l, int r, int k); 
@@ -82,6 +98,7 @@ int kthSmallest(int arr[], int l, int r, int k)
 	return INT_MAX; 
 } 
 
+//Swap function
 void swap(int *a, int *b) 
 { 
 	int temp = *a; 
@@ -122,7 +139,7 @@ void printArray(int arr[], int size)
 		cout << arr[i] << " "; 
 	cout << endl; 
 } 
-
+/* Function to make a random array */
 void makeArray(int arr[], int size)
 {
   srand(time(NULL));
@@ -130,27 +147,59 @@ void makeArray(int arr[], int size)
     arr[i]= 0 + rand() % 2000;
   }
 }
+
+/*Function to make array with increasing rank */
+void makeArrayAsec(int arr[],int size)
+{
+  for(int i=0;i<size;i++)
+    arr[i]=i;
+}
+/* Function to make an array with decreasing rank */
+void makeArrayDesc(int arr[],int size)
+{
+  for(int i=0;i<size;i++)
+    arr[i]=size-i;
+}
+
 // Driver program to test above functions 
 int main() 
 { 
- double result =0;
+// set defaults
  int total = 0;
- int size = 2000;
  int max =0;
- for(int i=0;i<100; i++){
- int rand[size];
- makeArray(rand,size); 
-// printArray(rand,size);	
- auto start = high_resolution_clock::now();
-	quickSort(rand, 0, size-1); 
- auto stop = high_resolution_clock::now();
- auto duration = duration_cast<microseconds>(stop-start);
- cout << duration.count() << endl;
- total = total + duration.count();
- if (duration.count() > max)
-   max = duration.count();
+ int count =1000;
+ int sizeArray[] ={100000};
+ int avgArray[9];
+ int maxArray[9];
+ int n = sizeof(sizeArray)/sizeof(sizeArray[0]);
+ //loop through size of array 
+for(int j=0;j<n;j++){
+   max =0;
+   total=0;
+   int size = sizeArray[j]; 
+
+  // Call Quicksort 1000 times (count)
+ for(int i=0;i<count; i++){
+   int rand[size];
+   makeArray(rand,size);
+ //printArray(rand,size); 
+  // calculate run time
+   auto start = high_resolution_clock::now();
+	  quickSort(rand, 0, size-1); 
+   auto stop = high_resolution_clock::now();
+   auto duration = duration_cast<microseconds>(stop-start);
+ //cout << duration.count() << endl;
+  total = total + duration.count();
+ // printArray(rand,size);
+  if (duration.count() > max)
+     max = duration.count();
+  }
+   avgArray[j]=total/count;
+   maxArray[j]=max;
  }
- cout << "Average" << total/100 << " max " << max<<endl;
+// print for easy display of data
+ for(int x=0;x<n;x++)
+   cout << "For size " <<sizeArray[x]<<" MOM Average " << avgArray[x] << " max " << maxArray[x]<<endl;
 	return 0; 
 } 
 
