@@ -164,36 +164,36 @@ void makeArrayDesc(int arr[],int size)
 // Driver program to test above functions 
 int main() 
 { 
-// set defaults
- int total = 0;
- int max =0;
- int count =1000;
- int sizeArray[] ={100,1000,2000,5000,10000,15000,20000,50000,100000};
- int avgArray[9];
- int maxArray[9];
- int n = sizeof(sizeArray)/sizeof(sizeArray[0]);
- //loop through size of array 
-for(int j=0;j<n;j++){
-   max =0;
-   total=0;
-   int size = sizeArray[j]; 
+//set defaults
+  int total = 0;
+  int max =0;
+  int count =1000;
+  int sizeArray[] ={100,1000,2000,5000,10000,15000,20000,50000,100000};
+  int avgArray[9];
+  int maxArray[9];
+  int n = sizeof(sizeArray)/sizeof(sizeArray[0]);
+//loop through size of array 
+  for(int j=0;j<n;j++){
+    max =0;
+    total=0;
+    int size = sizeArray[j]; 
 
-  // Call Quicksort 1000 times (count)
- for(int i=0;i<count; i++){
-   int arr[size];
-   makeArray(arr,size);
- //printArray(arr,size); 
-  // calculate run time
-   auto start = high_resolution_clock::now();
-	  quickSort(arr, 0, size-1); 
-   auto stop = high_resolution_clock::now();
-   auto duration = duration_cast<microseconds>(stop-start);
- //cout << duration.count() << endl;
-  total = total + duration.count();
- // printArray(arr,size);
-  if (duration.count() > max)
-     max = duration.count();
-  }
+// Call Quicksort 1000 times (count)
+    for(int i=0;i<count; i++){
+      int arr[size];
+      makeArray(arr,size);
+//    printArray(arr,size); 
+//    calculate run time
+      auto start = high_resolution_clock::now();
+	     quickSort(arr, 0, size-1); 
+      auto stop = high_resolution_clock::now();
+      auto duration = duration_cast<microseconds>(stop-start);
+//    cout << duration.count() << endl;
+      total = total + duration.count();
+//    printArray(arr,size);
+      if (duration.count() > max)
+        max = duration.count();
+     }
    avgArray[j]=total/count;
    maxArray[j]=max;
  }
